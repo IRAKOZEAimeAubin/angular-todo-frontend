@@ -1,0 +1,47 @@
+<div class="max-w-full mt-5 flex">
+  <section class="mx-auto">
+    <div class="py-8 px-4 mx-auto bg-slate-100 shadow-xl rounded max-w-2xl lg:py-16">
+      <h2
+        class="mb-4 text-xl font-bold text-gray-900 uppercase tracking-widest text-center"
+      >
+        login
+      </h2>
+      <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="sm:col-span-2">
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Username</label
+            >
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="bg-sky-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none ring-2 focus:ring-4"
+              placeholder="Username"
+              required=""
+              ngModel
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="bg-sky-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none ring-2 focus:ring-4"
+              required=""
+              ngModel
+            />
+          </div>
+        </div>
+        <button type="submit" class="uppercase inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-semibold text-center text-white bg-sky-700 rounded-lg hover:ring-4 focus:ring-4">login</button>
+      </form>
+    </div>
+  </section>
+</div>

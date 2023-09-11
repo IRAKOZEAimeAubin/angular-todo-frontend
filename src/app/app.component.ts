@@ -3,8 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'td-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'frontend';
+  
+  logout() {
+    console.log('Signout not implemented!');
+  }
 }
