@@ -23,7 +23,16 @@ export class StorageService {
     if (user) {
       return JSON.parse(user);
     }
+    return {};
   }
 
-  
+  removeUser() {
+    window.sessionStorage.removeItem(USER_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) return true;
+    return false;
+  }
 }

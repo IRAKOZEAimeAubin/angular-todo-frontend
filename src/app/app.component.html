@@ -1,4 +1,4 @@
-<nav class="max-w-full flex">
+<nav class="max-w-full flex" *ngIf="isLoggedIn">
     <ul class="mx-auto flex gap-4">
         <li>
             <a [routerLink]="['/dashboard']" routerLinkActive="font-bold bg-amber-200" class="tracking-wide p-2 rounded">Dashboard</a>
