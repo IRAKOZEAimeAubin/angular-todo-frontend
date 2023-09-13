@@ -1,1 +1,31 @@
-<p>dashboard works!</p>
+<div
+  class="flex flex-col gap-3 max-w-full mt-5"
+  *ngIf="allPublishedTodo$ | async as allPublishedTodo"
+>
+  <div class="w-[400px] self-center">
+    <label for="users" class="block mb-2 text-sm font-medium"
+      >Select user</label
+    >
+    <select
+      id="users"
+      class="bg-gray-50 border-2 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none"
+      (change)="onUserSelected($any($event.target).value)"
+    >
+      <option value="">-Display All-</option>
+      <option *ngFor="let user of allUsers$ | async" [value]="user.id">
+        {{ user.name }}
+      </option>
+    </select>
+  </div>
+
+  <div
+    class="mx-auto shadow hover:shadow-lg rounded p-3 w-[400px] text-center"
+    *ngFor="let publishedTodo of allPublishedTodo"
+    [ngClass]="publishedTodo.status.toLowerCase()"
+  >
+    <h1 class="font-bold text-lg">{{ publishedTodo.title }}</h1>
+    <span class="text-xs font-semibold bg-blue-200 p-[2px] rounded"
+      >@{{ publishedTodo.creator }}</span
+    >
+  </div>
+</div>
