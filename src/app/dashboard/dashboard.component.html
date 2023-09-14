@@ -19,13 +19,22 @@
   </div>
 
   <div
-    class="mx-auto shadow hover:shadow-lg rounded p-3 w-[400px] text-center"
+    class="mx-auto shadow hover:shadow-lg rounded p-3 w-[400px] text-center cursor-pointer"
     *ngFor="let publishedTodo of allPublishedTodo"
     [ngClass]="publishedTodo.status.toLowerCase()"
+    (click)="onSelectedTodo(publishedTodo.todoId!)"
   >
     <h1 class="font-bold text-lg">{{ publishedTodo.title }}</h1>
     <span class="text-xs font-semibold bg-blue-200 p-[2px] rounded"
       >@{{ publishedTodo.creator }}</span
     >
+  </div>
+
+  <div *ngIf="todo$ | async as todo" class="m-auto text-left w-[400px] bg-sky-200 rounded p-2">
+    <span class="mx-auto font-bold">
+      {{ todo.title | uppercase }}
+    </span>
+    <p>{{todo.description}}</p>
+    <span class="text-xs">{{todo.updatedAt}}</span>
   </div>
 </div>

@@ -44,7 +44,18 @@ export class DashboardComponent {
     })
   );
 
+  todo$ = this.dataService.selectedPublishedTodo$.pipe(
+    catchError((err) => {
+      this.errorMessageSubject.next(err);
+      return EMPTY;
+    })
+  );
+
   onUserSelected(id: string) {
     this.userSelectedSubject.next(id);
+  }
+
+  onSelectedTodo(id: string) {
+    this.dataService.selectedTodoChanged(id);
   }
 }

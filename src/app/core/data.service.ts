@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, combineLatest, map, shareReplay, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, combineLatest, filter, map, of, shareReplay, tap, throwError } from 'rxjs';
 import { ApiError } from '../shared/ApiError';
 import { User } from '../shared/User';
 import { Todo } from '../shared/Todo';
@@ -23,14 +23,17 @@ export class DataService {
     return throwError(() => error);
   }
 
+  private todoSelectedSubject = new BehaviorSubject<string>('');
+  todoSelectedAction$ = this.todoSelectedSubject.asObservable();
+
   allUsers$ = this.http.get<User[]>('http://localhost:8000/users/').pipe(
-    tap((data) => console.log('Users:', data)),
+    tap((data) => console.log('All Users:', data)),
     shareReplay(1),
     catchError(this.handleError)
   );
 
-  allTodos$ = this.http.get<Todo[]>('http://localhost:8000/todos/').pipe(
-    tap((items) => console.log('Todos: ', items)),
+  allTodos$ = this.http.get<Todo[]>( 'http://localhost:8000/todos/' ).pipe(
+    tap((items) => console.log('All Todos: ', items)),
     shareReplay(1),
     catchError(this.handleError)
   );
@@ -38,7 +41,7 @@ export class DataService {
   allPublishedTodo$ = this.http
     .get<Todo[]>('http://localhost:8000/todos/published')
     .pipe(
-      tap((items) => console.log('Todos: ', items)),
+      tap((items) => console.log('Published Todos: ', items)),
       shareReplay(1),
       catchError(this.handleError)
     );
@@ -52,13 +55,25 @@ export class DataService {
         ...todo,
         updatedAt: new Intl.DateTimeFormat('en-EN', {
           dateStyle: 'full',
-        } ).format( new Date( todo.updatedAt! ) ),
-        searchKey: [ todo.title ],
-        creator:users.find((user)=>todo.creatorId===user.id)?.username
+        }).format(new Date(todo.updatedAt!)),
+        searchKey: [todo.title],
+        creator: users.find((user) => todo.creatorId === user.id)?.username,
       }))
     ),
     shareReplay(1)
   );
 
+  selectedPublishedTodo$ = combineLatest([
+    this.publishedTodosWithUser$,
+    this.todoSelectedAction$,
+  ]).pipe(
+    map(([todos, selectedTodoId]) =>
+      todos.find((todo) => todo.todoId === selectedTodoId)
+    ),
+    tap((todo) => console.log('Selected Todo:', todo))
+  );
 
+  selectedTodoChanged(selectedTodoId: string) {
+    this.todoSelectedSubject.next(selectedTodoId);
+  }
 }
