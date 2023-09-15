@@ -1,6 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, combineLatest, filter, map, of, shareReplay, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  combineLatest,
+  filter,
+  map,
+  of,
+  shareReplay,
+  tap,
+  throwError,
+} from 'rxjs';
 import { ApiError } from '../shared/ApiError';
 import { User } from '../shared/User';
 import { Todo } from '../shared/Todo';
@@ -32,7 +43,15 @@ export class DataService {
     catchError(this.handleError)
   );
 
-  allTodos$ = this.http.get<Todo[]>( 'http://localhost:8000/todos/' ).pipe(
+  allTodos$ = this.http.get<Todo[]>('http://localhost:8000/todos/').pipe(
+    map((todos) =>
+      todos.map((todo) => ({
+        ...todo,
+        updatedAt: new Intl.DateTimeFormat('en-EN', {
+          dateStyle: 'full',
+        }).format(new Date(todo.updatedAt!)),
+      }))
+    ),
     tap((items) => console.log('All Todos: ', items)),
     shareReplay(1),
     catchError(this.handleError)

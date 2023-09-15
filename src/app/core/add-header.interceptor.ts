@@ -16,8 +16,6 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    console.log(this.storageService.getUser());
-
     let jsonReq: HttpRequest<any> = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.storageService.getUser().accessToken}`,
