@@ -1,7 +1,7 @@
-<div class="flex flex-col gap-3 max-w-full mt-5" *ngIf="userTodo$ | async as userTodo">
-    <div class="mx-auto shadow hover:shadow-lg rounded p-3 w-[400px] text-center" *ngFor="let todo of userTodo" [ngClass]="todo.status.toLocaleLowerCase()">
+<div class="flex flex-col gap-3 max-w-full mt-5" *ngIf="userTodos$ | async as userTodos">
+    <a [routerLink]="['/editTodo',todo.todoId]" class="mx-auto shadow hover:shadow-lg rounded p-3 w-[400px] text-center" *ngFor="let todo of userTodos" [ngClass]="todo.status.toLocaleLowerCase()">
         <h1 class="font-bold text-lg">{{ todo.title }}</h1>
         <p class="text-sm">{{ todo.description }}</p>
         <span class="text-xs">Last modified: {{ todo.updatedAt }}</span>
-    </div>
+    </a>
 </div>

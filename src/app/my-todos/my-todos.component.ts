@@ -18,7 +18,7 @@ export class MyTodosComponent {
   private errorMessageSubject = new Subject<ErrorInterface>();
   errorMessage$ = this.errorMessageSubject.asObservable();
 
-  userTodo$ = this.dataService.allTodos$.pipe(
+  userTodos$ = this.dataService.allTodos$.pipe(
     map((todos) =>
       todos.filter(
         (todo) => todo.creatorId === this.storageService.getUser().id

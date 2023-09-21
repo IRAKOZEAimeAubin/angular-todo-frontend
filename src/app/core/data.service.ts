@@ -92,6 +92,20 @@ export class DataService {
     tap((todo) => console.log('Selected Todo:', todo))
   );
 
+  addTodo(newTodo: Todo): Observable<Todo> {
+    return this.http
+      .post<Todo>('http://localhost:8000/todos/', newTodo)
+      .pipe(catchError(this.handleError));
+  }
+
+  singleTodo(id: string): Observable<Todo> {
+    return this.http.get<Todo>(`http://localhost:8000/todos/${id}/`).pipe(
+      tap((item) => console.log(item)),
+      shareReplay(1),
+      catchError(this.handleError)
+    );
+  }
+
   selectedTodoChanged(selectedTodoId: string) {
     this.todoSelectedSubject.next(selectedTodoId);
   }

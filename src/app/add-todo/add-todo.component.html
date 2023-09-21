@@ -1,1 +1,79 @@
-<p>add-todo works!</p>
+<div class="max-w-full mt-5">
+  <section class="mx-auto">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Add Todo</h2>
+      <form #addTodoForm="ngForm" (ngSubmit)="saveTodo(addTodoForm.value)">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="sm:col-span-2">
+            <label
+              for="title"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Title</label
+            >
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="bg-slate-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none border-[1px] border-gray-300 focus:ring-4 focus:ring-slate-200"
+              placeholder="Title"
+              required=""
+              ngModel
+            />
+          </div>
+          <div class="w-full">
+            <label
+              for="status"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Status</label
+            >
+            <select
+              id="status"
+              name="status"
+              class="bg-slate-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none border-[1px] border-gray-300 focus:ring-4 focus:ring-slate-200"
+              ngModel
+            >
+              <option value="PENDING">PENDING</option>
+              <option value="IN PROGRESS">IN PROGRESS</option>
+              <option value="DONE">DONE</option>
+            </select>
+          </div>
+          <div class="w-full">
+            <label
+              for="published"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Published</label
+            >
+            <input
+              type="checkbox"
+              name="published"
+              id="published"
+              class="w-4 h-4 border-[1px] border-gray-300 rounded focus:ring-slate-200 focus:ring-4"
+              ngModel
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="description"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              rows="8"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-slate-50 rounded-lg outline-none border-[1px] border-gray-300 focus:ring-4 focus:ring-slate-200"
+              placeholder="Todo..."
+              ngModel
+            ></textarea>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-semibold text-center text-white bg-sky-700 rounded-lg hover:ring-4 focus:ring-4"
+        >
+          Add Todo
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
